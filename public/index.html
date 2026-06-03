@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TutorSpace</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1623;--surface:#161e2e;--surface2:#1e2a3e;--border:#2a3a55;
+  --accent:#4f8ef7;--accent2:#38d9a9;--accent3:#f7a34f;--danger:#f75c5c;--warn:#f7c34f;
+  --text:#e8edf5;--text2:#8a9bbf;--text3:#4a5a7a;--card:#1a2438;
+  --radius:14px;--shadow:0 4px 32px rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+.page{display:none;min-height:100vh;animation:fadeIn .35s ease;}
+.page.active{display:block;}
+#page-login.active,#page-register.active,#page-forgot.active{display:flex;align-items:center;justify-content:center;}
+#page-app.active{display:flex;flex-direction:column;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* LANDING */
+#page-landing{background:radial-gradient(ellipse 80% 60% at 60% 10%,#1a2e5a 0%,#0f1623 70%);}
+.landing-nav{display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid var(--border);}
+.logo{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;color:var(--accent);}
+.logo span{color:var(--accent2);}
+.nav-actions{display:flex;gap:10px;}
+.nav-btn{border:none;padding:10px 22px;border-radius:50px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.nav-btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border);}
+.nav-btn-outline:hover{border-color:var(--accent);color:var(--accent);}
+.nav-btn-fill{background:var(--accent);color:#fff;}
+.nav-btn-fill:hover{background:#3a7ae8;}
+.hero{max-width:980px;margin:0 auto;padding:90px 48px 50px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.hero-tag{display:inline-block;background:rgba(79,142,247,.15);border:1px solid rgba(79,142,247,.3);color:var(--accent);padding:6px 14px;border-radius:50px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:22px;}
+.hero h1{font-family:'Unbounded',sans-serif;font-size:38px;font-weight:700;line-height:1.2;margin-bottom:18px;letter-spacing:-1px;}
+.hero h1 em{color:var(--accent2);font-style:normal;}
+.hero p{color:var(--text2);line-height:1.7;font-size:15px;margin-bottom:32px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn-hero-p{background:var(--accent);color:#fff;border:none;padding:14px 30px;border-radius:50px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-hero-p:hover{background:#3a7ae8;transform:translateY(-2px);}
+.btn-hero-o{background:transparent;color:var(--text);border:1.5px solid var(--border);padding:14px 30px;border-radius:50px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-hero-o:hover{border-color:var(--accent2);color:var(--accent2);}
+.hero-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:26px;box-shadow:var(--shadow);}
+.hc-title{font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px;}
+.hc-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;margin-bottom:7px;background:var(--card);border:1px solid var(--border);}
+.hc-time{font-size:12px;color:var(--text2);margin-left:auto;}
+.features{max-width:980px;margin:0 auto;padding:10px 48px 70px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.feat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;transition:border-color .2s;}
+.feat:hover{border-color:var(--accent);}
+.feat-icon{font-size:26px;margin-bottom:14px;}
+.feat h3{font-family:'Unbounded',sans-serif;font-size:12px;margin-bottom:8px;}
+.feat p{font-size:12px;color:var(--text2);line-height:1.6;}
+/* AUTH */
+.auth-card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:44px;width:440px;max-width:95vw;box-shadow:var(--shadow);}
+.auth-logo{font-family:'Unbounded',sans-serif;font-size:19px;font-weight:700;color:var(--accent);text-align:center;margin-bottom:5px;}
+.auth-logo span{color:var(--accent2);}
+.auth-sub{text-align:center;color:var(--text2);font-size:13px;margin-bottom:26px;}
+.role-tabs{display:flex;gap:7px;margin-bottom:22px;background:var(--bg);border-radius:12px;padding:5px;}
+.role-tab{flex:1;padding:9px;border:none;border-radius:8px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;background:transparent;color:var(--text2);}
+.role-tab.active{background:var(--accent);color:#fff;}
+.sec-badge{display:flex;align-items:center;gap:8px;background:rgba(56,217,169,.07);border:1px solid rgba(56,217,169,.2);border-radius:10px;padding:9px 13px;margin-bottom:18px;}
+.sec-badge-text{font-size:11px;color:var(--accent2);line-height:1.4;}
+label{display:block;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;}
+.field{margin-bottom:16px;}
+.input-wrap{position:relative;}
+.inp{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:12px 15px;font-family:'Manrope',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.inp:focus{border-color:var(--accent);}
+.eye{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;padding:4px;}
+.auth-btn{width:100%;background:var(--accent);color:#fff;border:none;border-radius:11px;padding:13px;font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px;}
+.auth-btn:hover:not(:disabled){background:#3a7ae8;}
+.auth-btn:disabled{opacity:.5;cursor:not-allowed;}
+.auth-btn-green{background:var(--accent2);color:#0f1623;}
+.auth-btn-green:hover:not(:disabled){background:#2fc49a;}
+.auth-err{background:rgba(247,92,92,.1);border:1px solid rgba(247,92,92,.3);color:var(--danger);border-radius:10px;padding:11px;font-size:13px;margin-bottom:14px;display:none;white-space:pre-line;}
+.auth-ok{background:rgba(56,217,169,.1);border:1px solid rgba(56,217,169,.3);color:var(--accent2);border-radius:10px;padding:11px;font-size:13px;margin-bottom:14px;display:none;}
+.auth-link{display:block;text-align:center;color:var(--text2);font-size:13px;margin-top:12px;cursor:pointer;transition:color .2s;}
+.auth-link:hover{color:var(--accent);}
+.auth-hint{text-align:center;font-size:11px;color:var(--text3);margin-top:14px;}
+/* Password strength */
+.strength-wrap{margin-top:8px;}
+.strength-bars{display:flex;gap:3px;margin-bottom:5px;}
+.sbar{flex:1;height:4px;border-radius:2px;background:var(--surface2);transition:background .25s;}
+.strength-lbl{font-size:11px;margin-bottom:6px;}
+.rules{display:flex;flex-direction:column;gap:3px;}
+.rule{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:6px;transition:color .2s;}
+.rule.ok{color:var(--accent2);}
+.rdot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+/* APP */
+.app-header{background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;height:58px;gap:16px;position:sticky;top:0;z-index:100;}
+.app-logo{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:var(--accent);}
+.app-logo span{color:var(--accent2);}
+.app-nav{display:flex;gap:2px;flex:1;margin-left:8px;overflow-x:auto;}
+.anb{background:none;border:none;color:var(--text2);font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;padding:7px 12px;border-radius:8px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.anb:hover{background:var(--surface2);color:var(--text);}
+.anb.active{background:rgba(79,142,247,.15);color:var(--accent);}
+.session-box{display:flex;align-items:center;gap:5px;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.2);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--text2);white-space:nowrap;}
+.session-box.warn{background:rgba(247,195,79,.1);border-color:rgba(247,195,79,.3);color:var(--warn);}
+.session-box.danger{background:rgba(247,92,92,.1);border-color:rgba(247,92,92,.3);color:var(--danger);}
+#stime{font-weight:700;font-variant-numeric:tabular-nums;}
+.user-pill{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);border-radius:50px;padding:4px 14px 4px 4px;transition:border-color .2s;cursor:pointer;}
+.user-pill:hover{border-color:var(--accent);}
+.u-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0;}
+.u-name{font-size:12px;font-weight:600;}
+.u-role{font-size:10px;color:var(--text2);}
+.logout-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:17px;padding:4px 6px;border-radius:6px;transition:color .2s;margin-left:2px;}
+.logout-btn:hover{color:var(--danger);}
+.app-body{flex:1;padding:28px 32px;max-width:1200px;width:100%;margin:0 auto;}
+.section{display:none;animation:fadeIn .3s ease;}
+.section.active{display:block;}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap;}
+.sec-title{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:700;}
+.sec-sub{color:var(--text2);font-size:12px;margin-top:3px;}
+/* Buttons */
+.btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btn:hover{background:#3a7ae8;transform:translateY(-1px);}
+.btn-sm{padding:6px 13px;font-size:11px;border-radius:8px;}
+.btn-danger{background:var(--danger);}
+.btn-danger:hover{background:#e04848;transform:none;}
+.btn-success{background:var(--accent2);color:#0f1623;}
+.btn-success:hover{background:#2fc49a;}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+/* Schedule */
+.sched-wrap{overflow-x:auto;}
+.sched-grid{display:grid;grid-template-columns:64px repeat(7,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-width:700px;}
+.sc{background:var(--card);padding:9px 7px;min-height:42px;font-size:11px;color:var(--text2);text-align:center;}
+.sc-head{background:var(--surface2);font-weight:700;color:var(--text);font-size:10px;text-transform:uppercase;letter-spacing:.4px;}
+.sl{border-radius:6px;padding:5px 7px;font-size:10px;margin:2px;cursor:pointer;text-align:left;transition:background .2s;}
+.sl:hover{filter:brightness(1.3);}
+.sl-add{background:none;border:1px dashed var(--border);border-radius:6px;color:var(--text3);font-size:10px;padding:3px;cursor:pointer;margin:2px;transition:all .2s;width:calc(100% - 4px);}
+.sl-add:hover{border-color:var(--accent);color:var(--accent);}
+.week-nav{display:flex;align-items:center;gap:10px;}
+.week-lbl{font-size:13px;font-weight:600;min-width:160px;text-align:center;}
+/* Students */
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;}
+.sc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:border-color .2s;}
+.sc-card:hover{border-color:var(--accent);}
+.sc-av{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;}
+.sc-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+.sc-tag{font-size:11px;color:var(--accent);font-weight:600;background:rgba(79,142,247,.12);display:inline-block;padding:2px 9px;border-radius:50px;margin-bottom:10px;}
+.sc-info{font-size:12px;color:var(--text2);line-height:1.9;}
+.sc-info b{color:var(--text);font-weight:600;}
+/* HW */
+.hw-list{display:flex;flex-direction:column;gap:9px;}
+.hw-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;display:flex;align-items:flex-start;gap:12px;}
+.hw-item.done{opacity:.55;}
+.hw-chk{width:19px;height:19px;border-radius:5px;border:2px solid var(--border);background:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .2s;font-size:11px;}
+.hw-chk.checked{background:var(--accent2);border-color:var(--accent2);color:#0f1623;}
+.hw-body{flex:1;min-width:0;}
+.hw-title{font-size:14px;font-weight:600;margin-bottom:3px;}
+.hw-item.done .hw-title{text-decoration:line-through;}
+.hw-meta{font-size:12px;color:var(--text2);display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.hw-student{color:var(--accent);font-weight:600;}
+.hw-due{color:var(--accent3);}
+.hw-due.over{color:var(--danger);}
+.hw-actions{display:flex;flex-direction:column;gap:5px;flex-shrink:0;}
+.hw-icon-btn{background:none;border:none;cursor:pointer;font-size:14px;padding:3px 5px;border-radius:5px;transition:color .2s;}
+.hw-icon-btn:hover{background:var(--surface2);}
+.filters{display:flex;gap:7px;margin-bottom:16px;flex-wrap:wrap;}
+.fbtn{background:var(--surface2);border:1px solid var(--border);border-radius:50px;color:var(--text2);padding:5px 13px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;}
+.fbtn.active{background:rgba(79,142,247,.15);border-color:var(--accent);color:var(--accent);}
+/* Stats */
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;}
+.stat-num{font-family:'Unbounded',sans-serif;font-size:30px;font-weight:700;margin-bottom:4px;}
+.stat-lbl{font-size:12px;color:var(--text2);}
+.bar-row{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.bar-lbl{font-size:11px;color:var(--text2);width:85px;flex-shrink:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bar-track{flex:1;background:var(--surface2);border-radius:50px;height:7px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:50px;background:var(--accent);transition:width .6s ease;}
+.bar-val{font-size:11px;color:var(--text2);width:28px;text-align:right;}
+/* Lessons */
+.lesson-list{display:flex;flex-direction:column;gap:9px;}
+.lesson-item{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;display:flex;align-items:center;gap:14px;}
+.lesson-date{background:rgba(79,142,247,.14);border:1px solid rgba(79,142,247,.3);border-radius:9px;padding:9px 13px;text-align:center;flex-shrink:0;}
+.lesson-day{font-size:18px;font-weight:700;color:var(--accent);font-family:'Unbounded',sans-serif;}
+.lesson-mon{font-size:9px;color:var(--text2);text-transform:uppercase;}
+.lbadge{font-size:10px;font-weight:600;padding:4px 11px;border-radius:50px;}
+.lb-up{background:rgba(79,142,247,.15);color:var(--accent);}
+.lb-done{background:rgba(56,217,169,.15);color:var(--accent2);}
+/* Progress */
+.prog-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;}
+.prog-track{background:var(--surface2);border-radius:50px;height:10px;overflow:hidden;margin-bottom:5px;}
+.prog-bar{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .8s ease;}
+/* Attachments */
+.att-list{display:flex;flex-direction:column;gap:7px;margin-top:10px;}
+.att-item{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:8px 11px;}
+.att-icon{width:36px;height:36px;border-radius:6px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.att-info{flex:1;min-width:0;}
+.att-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.att-size{font-size:10px;color:var(--text3);margin-top:2px;}
+.att-dl{background:rgba(79,142,247,.12);border:1px solid rgba(79,142,247,.25);color:var(--accent);border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .2s;font-family:inherit;}
+.att-dl:hover{background:rgba(79,142,247,.25);}
+.drop-zone{border:2px dashed var(--border);border-radius:11px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--card);}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(79,142,247,.06);}
+/* Modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1000;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;animation:fadeIn .2s;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:30px;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;}
+.modal h2{font-family:'Unbounded',sans-serif;font-size:15px;margin-bottom:22px;}
+.modal-foot{display:flex;gap:9px;margin-top:22px;justify-content:flex-end;}
+textarea{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:12px 15px;font-family:'Manrope',sans-serif;font-size:14px;color:var(--text);outline:none;resize:vertical;min-height:75px;transition:border-color .2s;}
+textarea:focus{border-color:var(--accent);}
+select{width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:12px 15px;font-family:'Manrope',sans-serif;font-size:14px;color:var(--text);outline:none;appearance:none;cursor:pointer;transition:border-color .2s;}
+select:focus{border-color:var(--accent);}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:50px 20px;color:var(--text2);}
+.empty-icon{font-size:44px;margin-bottom:14px;}
+.empty-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:7px;}
+.empty-text{font-size:12px;}
+#toast{position:fixed;bottom:24px;right:24px;background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:13px 20px;border-radius:11px;font-size:13px;font-weight:500;box-shadow:var(--shadow);z-index:9999;transform:translateY(70px);opacity:0;transition:all .3s;pointer-events:none;max-width:320px;}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.success{border-color:var(--accent2);color:var(--accent2);}
+#toast.error{border-color:var(--danger);color:var(--danger);}
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;padding:50px 22px 30px;}
+  .hero-card,.features{display:none;}
+  .hero h1{font-size:28px;}
+  .landing-nav{padding:14px 22px;}
+  .app-body{padding:18px 14px;}
+  .grid4,.grid3,.grid2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="page-landing" class="page active">
+  <nav class="landing-nav">
+    <div class="logo">Tutor<span>Space</span></div>
+    <div class="nav-actions">
+      <button class="nav-btn nav-btn-outline" onclick="showPage('login')">Войти</button>
+      <button class="nav-btn nav-btn-fill"    onclick="showPage('register')">Регистрация</button>
+    </div>
+  </nav>
+  <div class="hero">
+    <div>
+      <div class="hero-tag">🎓 Платформа для репетиторов</div>
+      <h1>Всё для уроков — <em>в одном месте</em></h1>
+      <p>Ведите расписание, назначайте задания с файлами, отслеживайте прогресс. Работает на любых устройствах — репетитор и ученики соединяются через интернет.</p>
+      <div class="hero-btns">
+        <button class="btn-hero-p" onclick="showPage('register')">Зарегистрироваться</button>
+        <button class="btn-hero-o" onclick="showPage('login')">Уже есть аккаунт →</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-title">📅 Сегодняшние уроки</div>
+      <div class="hc-item"><div style="width:8px;height:8px;border-radius:50%;background:#4f8ef7;flex-shrink:0"></div><div><div style="font-size:13px;font-weight:600">Алексей К.</div><div style="font-size:11px;color:#8a9bbf">Математика</div></div><div class="hc-time">10:00</div></div>
+      <div class="hc-item"><div style="width:8px;height:8px;border-radius:50%;background:#38d9a9;flex-shrink:0"></div><div><div style="font-size:13px;font-weight:600">Мария С.</div><div style="font-size:11px;color:#8a9bbf">Физика</div></div><div class="hc-time">13:30</div></div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feat"><div class="feat-icon">🌐</div><h3>Работает онлайн</h3><p>Сервер хранит данные — репетитор и ученики заходят с разных компьютеров.</p></div>
+    <div class="feat"><div class="feat-icon">🔐</div><h3>Безопасность</h3><p>Пароли хешируются bcrypt. Защита от перебора, JWT-токены.</p></div>
+    <div class="feat"><div class="feat-icon">📎</div><h3>Файлы</h3><p>Прикрепляйте фото, PDF, Word, PowerPoint прямо к заданиям.</p></div>
+    <div class="feat"><div class="feat-icon">📊</div><h3>Статистика</h3><p>Прогресс учеников, выполнение заданий, расписание.</p></div>
+  </div>
+</div>
+
+<!-- LOGIN -->
+<div id="page-login" class="page">
+  <div class="auth-card">
+    <div class="auth-logo">Tutor<span>Space</span></div>
+    <div class="auth-sub">Вход в аккаунт</div>
+    <div class="sec-badge"><span style="font-size:15px">🔒</span>
+      <div class="sec-badge-text">Пароли зашифрованы bcrypt · JWT-авторизация · Защита от перебора</div>
+    </div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="selRole('tutor')"   id="tab-tutor">👩‍🏫 Репетитор</button>
+      <button class="role-tab"        onclick="selRole('student')" id="tab-student">🧑‍🎓 Ученик</button>
+    </div>
+    <div id="login-err" class="auth-err"></div>
+    <div class="field"><label>Логин</label><input class="inp" type="text" id="l-login" placeholder="Ваш логин" autocomplete="off" spellcheck="false"></div>
+    <div class="field"><label>Пароль</label>
+      <div class="input-wrap">
+        <input class="inp" type="password" id="l-pass" placeholder="Ваш пароль">
+        <button class="eye" onclick="toggleEye('l-pass',this)">👁</button>
+      </div>
+    </div>
+    <button class="auth-btn" id="l-btn" onclick="doLogin()">Войти</button>
+    <a class="auth-link" onclick="showPage('forgot')" style="color:var(--accent3)">Забыли пароль?</a>
+    <div class="auth-hint">Нет аккаунта? <b onclick="showPage('register')" style="cursor:pointer;color:var(--accent)">Зарегистрироваться</b></div>
+    <a class="auth-link" onclick="showPage('landing')">← На главную</a>
+  </div>
+</div>
+
+<!-- REGISTER -->
+<div id="page-register" class="page">
+  <div class="auth-card" style="width:480px">
+    <div class="auth-logo">Tutor<span>Space</span></div>
+    <div class="auth-sub">Создайте аккаунт</div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="selRegRole('tutor')"   id="rtab-tutor">👩‍🏫 Я репетитор</button>
+      <button class="role-tab"        onclick="selRegRole('student')" id="rtab-student">🧑‍🎓 Я ученик</button>
+    </div>
+    <div id="reg-err" class="auth-err"></div>
+    <div id="r-tutor-field" class="field" style="display:none">
+      <label>Ваш репетитор <span style="font-weight:400;color:var(--text3)">(необязательно)</span></label>
+      <select class="inp" id="r-tutor" style="padding:12px 15px"><option value="">— пока не выбирать —</option></select>
+    </div>
+    <div id="r-subj-field" class="field" style="display:none">
+      <label>Предмет</label><input class="inp" type="text" id="r-subj" placeholder="Математика, Физика...">
+    </div>
+    <div class="field"><label>Имя и фамилия</label><input class="inp" type="text" id="r-name" placeholder="Иван Иванов"></div>
+    <div class="field"><label>Email (для восстановления пароля)</label><input class="inp" type="email" id="r-email" placeholder="pochta@gmail.com"></div>
+    <div class="field"><label>Логин</label><input class="inp" type="text" id="r-login" placeholder="Без пробелов" autocomplete="off" spellcheck="false"></div>
+    <div class="field"><label>Пароль</label>
+      <div class="input-wrap">
+        <input class="inp" type="password" id="r-pass" placeholder="Надёжный пароль" oninput="onPassInput()">
+        <button class="eye" onclick="toggleEye('r-pass',this)">👁</button>
+      </div>
+      <div class="strength-wrap" id="strength-wrap"></div>
+    </div>
+    <div class="field"><label>Повторите пароль</label>
+      <div class="input-wrap">
+        <input class="inp" type="password" id="r-pass2" placeholder="Повторите пароль" oninput="onPass2Input()">
+        <button class="eye" onclick="toggleEye('r-pass2',this)">👁</button>
+      </div>
+      <div id="pass-match" style="font-size:11px;margin-top:5px"></div>
+    </div>
+    <button class="auth-btn auth-btn-green" id="r-btn" onclick="doRegister()">Создать аккаунт</button>
+    <div class="auth-hint">Уже есть аккаунт? <b onclick="showPage('login')" style="cursor:pointer;color:var(--accent)">Войти</b></div>
+    <a class="auth-link" onclick="showPage('landing')">← На главную</a>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD -->
+<div id="page-forgot" class="page">
+  <div class="auth-card">
+    <div class="auth-logo">Tutor<span>Space</span></div>
+    <div class="auth-sub">Восстановление пароля</div>
+    <div id="forgot-err" class="auth-err"></div>
+    <div id="forgot-ok"  class="auth-ok"></div>
+    <!-- Шаг 1: ввод логина -->
+    <div id="forgot-step1">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:18px">Введите ваш логин — мы отправим код на привязанный email.</div>
+      <div class="field"><label>Логин</label><input class="inp" type="text" id="f-login" placeholder="Ваш логин" autocomplete="off"></div>
+      <button class="auth-btn" id="f-btn1" onclick="doForgotStep1()">Получить код</button>
+    </div>
+    <!-- Шаг 2: ввод кода и нового пароля -->
+    <div id="forgot-step2" style="display:none">
+      <div style="font-size:13px;color:var(--text2);margin-bottom:18px">Введите 6-значный код из письма и придумайте новый пароль.</div>
+      <div class="field"><label>Код из письма</label>
+        <input class="inp" type="text" id="f-code" placeholder="123456" maxlength="6" style="letter-spacing:6px;font-size:18px;text-align:center">
+      </div>
+      <div class="field"><label>Новый пароль</label>
+        <div class="input-wrap">
+          <input class="inp" type="password" id="f-newpass" placeholder="Новый надёжный пароль" oninput="renderStrengthIn('f-newpass','f-sw')">
+          <button class="eye" onclick="toggleEye('f-newpass',this)">👁</button>
+        </div>
+        <div class="strength-wrap" id="f-sw"></div>
+      </div>
+      <button class="auth-btn auth-btn-green" id="f-btn2" onclick="doForgotStep2()">Сменить пароль</button>
+    </div>
+    <a class="auth-link" onclick="showPage('login')">← Назад к входу</a>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="page-app" class="page">
+  <header class="app-header">
+    <div class="app-logo">Tutor<span>Space</span></div>
+    <nav class="app-nav" id="app-nav"></nav>
+    <div class="session-box" id="sbox">⏱ <span id="stime">--:--</span></div>
+    <div class="user-pill" onclick="openProfile()">
+      <div class="u-avatar" id="u-av">?</div>
+      <div><div class="u-name" id="u-name">—</div><div class="u-role" id="u-role">—</div></div>
+      <button class="logout-btn" onclick="event.stopPropagation();confirmLogout()" title="Выйти">⏻</button>
+    </div>
+  </header>
+  <div class="app-body" id="app-body"></div>
+</div>
+
+<div class="modal-overlay" id="modal-ov" onclick="maybeCloseModal(event)"><div class="modal" id="modal-ct"></div></div>
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════
+//  КОНСТАНТЫ И КОНФИГУРАЦИЯ
+// ══════════════════════════════════════════════════
+const DAYS      = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const DAYS_FULL = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+const MONTHS    = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
+const HOURS     = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
+const PWD_RULES = [
+  { label:'Минимум 8 символов',           test: p => p.length >= 8 },
+  { label:'Хотя бы одна ЗАГЛАВНАЯ буква', test: p => /[A-Z]/.test(p) },
+  { label:'Хотя бы одна строчная буква',  test: p => /[a-z]/.test(p) },
+  { label:'Хотя бы одна цифра',           test: p => /[0-9]/.test(p) },
+  { label:'Спецсимвол: !@#$%^&*',         test: p => /[!@#$%^&*()\-_=+\[\]{};:'"\\|,.<>/?]/.test(p) },
+];
+
+// ══════════════════════════════════════════════════
+//  API
+// ══════════════════════════════════════════════════
+let _token = sessionStorage.getItem('ts_token') || null;
+let currentUser = null;
+
+async function api(method, url, body, isForm = false) {
+  const headers = {};
+  if (_token) headers['Authorization'] = 'Bearer ' + _token;
+  if (!isForm) headers['Content-Type'] = 'application/json';
+  const opts = { method, headers };
+  if (body) opts.body = isForm ? body : JSON.stringify(body);
+  const res = await fetch(url, opts);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'Ошибка сервера');
+  return data;
+}
+const GET    = url        => api('GET',    url);
+const POST   = (url, b)  => api('POST',   url, b);
+const PUT    = (url, b)  => api('PUT',    url, b);
+const PATCH  = (url, b)  => api('PATCH',  url, b);
+const DELETE = url        => api('DELETE', url);
+const FORM   = (url, fd) => api('POST',   url, fd, true);
+const FORMPUT= (url, fd) => api('PUT',    url, fd, true);
+
+function setToken(token) {
+  _token = token;
+  if (token) sessionStorage.setItem('ts_token', token);
+  else       sessionStorage.removeItem('ts_token');
+}
+
+// ══════════════════════════════════════════════════
+//  СОСТОЯНИЕ
+// ══════════════════════════════════════════════════
+let selectedRole  = 'tutor';
+let regRole       = 'tutor';
+let weekOffset    = 0;
+let hwFilter      = 'all';
+let _schedCache   = [];
+let _studCache    = [];
+let _hwCache      = [];
+let _stimer       = null;
+let _tokenExp     = null;
+
+// ══════════════════════════════════════════════════
+//  ВСПОМОГАТЕЛЬНЫЕ
+// ══════════════════════════════════════════════════
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (id === 'register') loadTutorsForReg();
+}
+function toggleEye(id, btn) {
+  const i = document.getElementById(id);
+  i.type = i.type === 'password' ? 'text' : 'password';
+  btn.textContent = i.type === 'password' ? '👁' : '🙈';
+}
+function selRole(r) {
+  selectedRole = r;
+  document.querySelectorAll('.role-tab:not([id^="rtab"])').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + r).classList.add('active');
+}
+function selRegRole(r) {
+  regRole = r;
+  document.querySelectorAll('[id^="rtab"]').forEach(t => t.classList.remove('active'));
+  document.getElementById('rtab-' + r).classList.add('active');
+  document.getElementById('r-tutor-field').style.display = r === 'student' ? 'block' : 'none';
+  document.getElementById('r-subj-field').style.display  = r === 'student' ? 'block' : 'none';
+}
+async function loadTutorsForReg() {
+  try {
+    const tutors = await GET('/api/users/tutors');
+    const sel = document.getElementById('r-tutor');
+    if (!sel) return;
+    sel.innerHTML = '<option value="">— пока не выбирать —</option>' +
+      tutors.map(t => `<option value="${t._id}">${t.name} (логин: ${t.login})</option>`).join('');
+  } catch {}
+}
+function checkPwd(p) {
+  const res = PWD_RULES.map(r => ({ ...r, ok: r.test(p) }));
+  return { res, score: res.filter(r => r.ok).length, valid: res.every(r => r.ok) };
+}
+function strengthInfo(s) {
+  return [
+    { lbl:'', color:'var(--border)' },
+    { lbl:'Очень слабый', color:'var(--danger)' },
+    { lbl:'Слабый',       color:'var(--danger)' },
+    { lbl:'Средний',      color:'var(--warn)' },
+    { lbl:'Хороший',      color:'var(--accent3)' },
+    { lbl:'Надёжный',     color:'var(--accent2)' },
+  ][s] || { lbl:'', color:'var(--border)' };
+}
+function renderStrengthIn(inputId, wrapId) {
+  const p = document.getElementById(inputId)?.value || '';
+  const w = document.getElementById(wrapId); if (!w) return;
+  if (!p) { w.innerHTML = ''; return; }
+  const { res, score } = checkPwd(p);
+  const si = strengthInfo(score);
+  const bars  = Array.from({length:5}, (_,i) => `<div class="sbar" style="background:${i<score?si.color:'var(--surface2)'}"></div>`).join('');
+  const rules = res.map(r => `<div class="rule ${r.ok?'ok':''}"><div class="rdot"></div>${r.label}</div>`).join('');
+  w.innerHTML = `<div class="strength-bars">${bars}</div><div class="strength-lbl" style="color:${si.color}">${si.lbl}</div><div class="rules">${rules}</div>`;
+}
+function onPassInput()  { renderStrengthIn('r-pass','strength-wrap'); onPass2Input(); }
+function onPass2Input() {
+  const p=document.getElementById('r-pass').value, p2=document.getElementById('r-pass2').value;
+  const el=document.getElementById('pass-match');
+  if (!p2) { el.innerHTML=''; return; }
+  el.innerHTML = p===p2
+    ? '<span style="color:var(--accent2)">✓ Пароли совпадают</span>'
+    : '<span style="color:var(--danger)">✗ Пароли не совпадают</span>';
+}
+function showErr(id, msg) { const e=document.getElementById(id); e.textContent=msg; e.style.display='block'; }
+function hideErr(id)      { document.getElementById(id).style.display='none'; }
+function showOk(id, msg)  { const e=document.getElementById(id); e.textContent=msg; e.style.display='block'; }
+function getFileIcon(type) {
+  if (!type) return '📎';
+  if (type.startsWith('image/'))                              return '🖼️';
+  if (type==='application/pdf')                              return '📄';
+  if (type.includes('word')||type.includes('document'))      return '📝';
+  if (type.includes('powerpoint')||type.includes('presentation')) return '📊';
+  if (type.includes('excel')||type.includes('sheet'))        return '📈';
+  return '📎';
+}
+function formatBytes(b) {
+  if (b<1024) return b+' Б'; if (b<1048576) return (b/1024).toFixed(1)+' КБ';
+  return (b/1048576).toFixed(1)+' МБ';
+}
+function dateStr(d) { return `${d.getDate()} ${MONTHS[d.getMonth()]}`; }
+function getWeekDates(off) {
+  const now=new Date(), day=now.getDay();
+  const mon=new Date(now); mon.setDate(now.getDate()-(day===0?6:day-1)+off*7);
+  return Array.from({length:7},(_,i)=>{const d=new Date(mon);d.setDate(mon.getDate()+i);return d;});
+}
+
+// ══════════════════════════════════════════════════
+//  TOAST
+// ══════════════════════════════════════════════════
+let _tt;
+function toast(msg, type='') {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+type;
+  clearTimeout(_tt); _tt=setTimeout(()=>t.className='',3200);
+}
+
+// ══════════════════════════════════════════════════
+//  СЕССИОННЫЙ ТАЙМЕР (декодируем JWT)
+// ══════════════════════════════════════════════════
+function startTimer(token) {
+  clearInterval(_stimer);
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    _tokenExp = payload.exp * 1000;
+  } catch { return; }
+  _stimer = setInterval(() => {
+    const sec = Math.max(0, Math.floor((_tokenExp - Date.now()) / 1000));
+    const el=document.getElementById('stime'), box=document.getElementById('sbox');
+    if (el) el.textContent=`${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`;
+    if (box) box.className='session-box'+(sec<300?(sec<60?' danger':' warn'):'');
+    if (sec===0) { toast('Сессия истекла. Войдите снова.','error'); setTimeout(()=>doLogout(),1500); }
+  }, 1000);
+}
+
+// ══════════════════════════════════════════════════
+//  AUTH
+// ══════════════════════════════════════════════════
+async function doLogin() {
+  const login=document.getElementById('l-login').value.trim();
+  const pass =document.getElementById('l-pass').value;
+  const btn  =document.getElementById('l-btn');
+  hideErr('login-err');
+  if (!login||!pass) { showErr('login-err','Заполните все поля'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Вход...';
+  try {
+    const data = await POST('/api/auth/login', { login, password: pass, role: selectedRole });
+    setToken(data.token);
+    currentUser = data.user;
+    document.getElementById('l-login').value='';
+    document.getElementById('l-pass').value='';
+    await initApp();
+    showPage('app');
+    startTimer(data.token);
+  } catch(e) { showErr('login-err', e.message); }
+  btn.disabled=false; btn.innerHTML='Войти';
+}
+
+async function doRegister() {
+  const name  = document.getElementById('r-name').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+  const login = document.getElementById('r-login').value.trim();
+  const pass  = document.getElementById('r-pass').value;
+  const pass2 = document.getElementById('r-pass2').value;
+  const btn   = document.getElementById('r-btn');
+  hideErr('reg-err');
+  if (!name||!login||!pass||!pass2) { showErr('reg-err','Заполните все обязательные поля'); return; }
+  if (!checkPwd(pass).valid) { showErr('reg-err','Пароль не соответствует требованиям безопасности'); return; }
+  if (pass!==pass2) { showErr('reg-err','Пароли не совпадают'); return; }
+  const subject  = regRole==='student' ? document.getElementById('r-subj').value.trim() : null;
+  const tutorVal = regRole==='student' ? document.getElementById('r-tutor').value : null;
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Создание...';
+  try {
+    await POST('/api/auth/register', { name, role: regRole, login, email: email||undefined, password: pass, subject, tutorId: tutorVal||undefined });
+    toast('✅ Аккаунт создан! Войдите в систему.','success');
+    ['r-name','r-email','r-login','r-pass','r-pass2'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('strength-wrap').innerHTML='';
+    setTimeout(()=>{ selRole(regRole); showPage('login'); },900);
+  } catch(e) { showErr('reg-err', e.message); }
+  btn.disabled=false; btn.innerHTML='Создать аккаунт';
+}
+
+async function doForgotStep1() {
+  const login=document.getElementById('f-login').value.trim();
+  const btn=document.getElementById('f-btn1');
+  hideErr('forgot-err'); hideErr('forgot-ok');
+  if (!login) { showErr('forgot-err','Введите логин'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Отправка...';
+  try {
+    const data = await POST('/api/auth/forgot-password', { login });
+    showOk('forgot-ok', data.message);
+    document.getElementById('forgot-step1').style.display='none';
+    document.getElementById('forgot-step2').style.display='block';
+  } catch(e) { showErr('forgot-err', e.message); }
+  btn.disabled=false; btn.innerHTML='Получить код';
+}
+
+async function doForgotStep2() {
+  const login=document.getElementById('f-login').value.trim();
+  const code=document.getElementById('f-code').value.trim();
+  const np=document.getElementById('f-newpass').value;
+  const btn=document.getElementById('f-btn2');
+  hideErr('forgot-err');
+  if (!code||!np) { showErr('forgot-err','Заполните все поля'); return; }
+  if (!checkPwd(np).valid) { showErr('forgot-err','Новый пароль не соответствует требованиям'); return; }
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Сохранение...';
+  try {
+    await POST('/api/auth/reset-password', { login, code, newPassword: np });
+    toast('✅ Пароль успешно изменён!','success');
+    setTimeout(()=>showPage('login'),1200);
+  } catch(e) { showErr('forgot-err', e.message); }
+  btn.disabled=false; btn.innerHTML='Сменить пароль';
+}
+
+function confirmLogout() {
+  openModal(`<div style="text-align:center;padding:10px 0">
+    <div style="font-size:44px;margin-bottom:16px">👋</div>
+    <h2 style="margin-bottom:10px">Выйти из аккаунта?</h2>
+    <div style="font-size:14px;color:var(--text2);margin-bottom:24px">Вы вошли как <b style="color:var(--text)">${currentUser.name}</b></div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()" style="padding:10px 24px">Отмена</button>
+      <button class="btn btn-danger btn-sm" onclick="doLogout()" style="padding:10px 24px">Да, выйти</button>
+    </div></div>`);
+}
+function doLogout() {
+  clearInterval(_stimer); setToken(null); currentUser=null;
+  document.getElementById('l-login').value='';
+  document.getElementById('l-pass').value='';
+  closeMod(); showPage('landing');
+}
+
+// ══════════════════════════════════════════════════
+//  APP INIT
+// ══════════════════════════════════════════════════
+function sw(name) {
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  document.querySelectorAll('.anb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('nt-'+name).classList.add('active');
+}
+
+async function initApp() {
+  if (!currentUser) {
+    try { currentUser = await GET('/api/users/me'); } catch { doLogout(); return; }
+  }
+  const u=currentUser;
+  const av=document.getElementById('u-av');
+  av.textContent=u.name[0].toUpperCase(); av.style.background=u.color||'#4f8ef7';
+  document.getElementById('u-name').textContent=u.name;
+  document.getElementById('u-role').textContent=u.role==='tutor'?'🔑 Репетитор':'🎓 Ученик';
+
+  const nav=document.getElementById('app-nav'), body=document.getElementById('app-body');
+  if (u.role==='tutor') {
+    nav.innerHTML=`
+      <button class="anb active" onclick="sw('sched')"    id="nt-sched">📅 Расписание</button>
+      <button class="anb"        onclick="sw('students')" id="nt-students">👥 Ученики</button>
+      <button class="anb"        onclick="sw('hw')"       id="nt-hw">📝 Задания</button>
+      <button class="anb"        onclick="sw('stats')"    id="nt-stats">📊 Статистика</button>
+      <button class="anb"        onclick="sw('security')" id="nt-security">🔐 Безопасность</button>`;
+    body.innerHTML=`
+      <div id="sec-sched"    class="section active"></div>
+      <div id="sec-students" class="section"></div>
+      <div id="sec-hw"       class="section"></div>
+      <div id="sec-stats"    class="section"></div>
+      <div id="sec-security" class="section"></div>`;
+    await Promise.all([rSched(), rStudents(), rHW(), rStats(), rSecurity()]);
+  } else {
+    nav.innerHTML=`
+      <button class="anb active" onclick="sw('mylessons')" id="nt-mylessons">📅 Мои уроки</button>
+      <button class="anb"        onclick="sw('myhw')"      id="nt-myhw">📝 Мои задания</button>
+      <button class="anb"        onclick="sw('myprog')"    id="nt-myprog">📈 Прогресс</button>`;
+    body.innerHTML=`
+      <div id="sec-mylessons" class="section active"></div>
+      <div id="sec-myhw"      class="section"></div>
+      <div id="sec-myprog"    class="section"></div>`;
+    await Promise.all([rMyLessons(), rMyHW(), rMyProgress()]);
+  }
+}
+
+// ══════════════════════════════════════════════════
+//  РАСПИСАНИЕ
+// ══════════════════════════════════════════════════
+async function rSched() {
+  const sec=document.getElementById('sec-sched');
+  try {
+    _schedCache = await GET('/api/schedule');
+    const dates=getWeekDates(weekOffset), today=new Date();
+    let g=`<div class="sched-grid"><div class="sc sc-head">Время</div>`;
+    dates.forEach((d,i)=>{
+      const isToday=d.toDateString()===today.toDateString();
+      g+=`<div class="sc sc-head" style="${isToday?'color:var(--accent)':''}">${DAYS[i]}<br><span style="font-size:9px;font-weight:400;color:var(--text2)">${dateStr(d)}</span></div>`;
+    });
+    HOURS.forEach(h=>{
+      g+=`<div class="sc" style="color:var(--text3);font-size:10px">${h}</div>`;
+      for(let d=0;d<7;d++){
+        const ls=_schedCache.filter(l=>l.day===d&&l.time===h);
+        g+=`<div class="sc">`;
+        ls.forEach(l=>{
+          const dur=l.duration||60;
+          const [hh,mm]=l.time.split(':').map(Number);
+          const endMin=hh*60+mm+dur;
+          const endStr=`${Math.floor(endMin/60).toString().padStart(2,'0')}:${(endMin%60).toString().padStart(2,'0')}`;
+          g+=`<div class="sl" onclick="openLessonInfo(${l.id})" style="border:1px solid ${l.color}50;background:${l.color}1a">
+          <div style="color:${l.color};font-weight:700;font-size:10px">${(l.student_name||'').split(' ')[0]}</div>
+          <div style="color:var(--text2);font-size:9px">${l.subject}</div>
+          <div style="color:var(--text3);font-size:9px">${l.time}–${endStr}</div></div>`;});
+        if(currentUser.role==='tutor') g+=`<button class="sl-add" onclick="openAddLesson(${d},'${h}')">+</button>`;
+        g+=`</div>`;
+      }
+    });
+    g+='</div>';
+    sec.innerHTML=`
+      <div class="sec-header">
+        <div><div class="sec-title">📅 Расписание</div><div class="sec-sub">Уроки на неделю</div></div>
+        ${currentUser.role==='tutor'?`<div class="week-nav">
+          <button class="btn btn-ghost btn-sm" onclick="chWeek(-1)">← Пред.</button>
+          <div class="week-lbl">${dateStr(dates[0])} — ${dateStr(dates[6])}</div>
+          <button class="btn btn-ghost btn-sm" onclick="chWeek(1)">След. →</button>
+          <button class="btn btn-sm" onclick="openAddLesson(-1,'')">+ Урок</button>
+        </div>`:''}
+      </div><div class="sched-wrap">${g}</div>`;
+  } catch(e){ sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`; }
+}
+async function chWeek(d){ weekOffset+=d; await rSched(); }
+
+function openLessonInfo(id){
+  const l=_schedCache.find(s=>s._id===id); if(!l) return;
+  const dur=l.duration||60;
+  const [hh,mm]=l.time.split(':').map(Number);
+  const endMin=hh*60+mm+dur;
+  const endStr=`${Math.floor(endMin/60).toString().padStart(2,'0')}:${(endMin%60).toString().padStart(2,'0')}`;
+  openModal(`<h2>📅 Урок</h2>
+    <div style="font-size:15px;font-weight:700;margin-bottom:8px">${l.student_name}</div>
+    <div style="color:var(--text2);font-size:13px;margin-bottom:4px">📚 ${l.subject}</div>
+    <div style="color:var(--text2);font-size:13px;margin-bottom:4px">🗓 ${DAYS_FULL[l.day]}, ${l.time}–${endStr}</div>
+    <div style="color:var(--text2);font-size:13px">⏱ ${dur} мин</div>
+    <div class="modal-foot">
+      <button class="btn btn-danger btn-sm" onclick="delLesson(${id})">🗑 Удалить</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()">Закрыть</button>
+    </div>`);
+}
+async function delLesson(id){
+  try{ await DELETE('/api/schedule/'+id); closeMod(); await rSched(); toast('Урок удалён','success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+function openAddLesson(day,time){
+  if(!_studCache.length){toast('Нет учеников','error');return;}
+  const opts=_studCache.map(s=>`<option value="${s._id}|${s.name}|${s.color||'#4f8ef7'}">${s.name}</option>`).join('');
+  const dOpts=DAYS_FULL.map((d,i)=>`<option value="${i}" ${i===day?'selected':''}>${d}</option>`).join('');
+  const tOpts=HOURS.map(h=>`<option value="${h}" ${h===time?'selected':''}>${h}</option>`).join('');
+  const durOpts=[30,45,60,90,120].map(d=>`<option value="${d}" ${d===60?'selected':''}>${d} мин</option>`).join('');
+  openModal(`<h2>+ Добавить урок</h2>
+    <div class="field"><label>Ученик</label><select id="al-st">${opts}</select></div>
+    <div class="field"><label>Предмет</label><input class="inp" type="text" id="al-subj" placeholder="Математика"></div>
+    <div class="field"><label>День</label><select id="al-day">${dOpts}</select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="field"><label>Время</label><select id="al-time">${tOpts}</select></div>
+      <div class="field"><label>Длительность</label><select id="al-dur">${durOpts}</select></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()">Отмена</button>
+      <button class="btn btn-sm" onclick="saveLesson()">Сохранить</button>
+    </div>`);
+  const fillSubj=()=>{ const v=document.getElementById('al-st').value.split('|'); if(v.length>1){const s=_studCache.find(s=>s._id==v[0]); if(s?.subject) document.getElementById('al-subj').value=s.subject;} };
+  document.getElementById('al-st').addEventListener('change',fillSubj); fillSubj();
+}
+async function saveLesson(){
+  const parts=document.getElementById('al-st').value.split('|');
+  const sid=parts[0], sname=parts[1], scolor=parts[2];
+  const subj=document.getElementById('al-subj').value.trim()||'Урок';
+  const day=parseInt(document.getElementById('al-day').value);
+  const time=document.getElementById('al-time').value;
+  const duration=parseInt(document.getElementById('al-dur').value)||60;
+  try{ await POST('/api/schedule',{studentId:sid,studentName:sname,day,time,subject:subj,color:scolor,duration}); closeMod(); await rSched(); await rStats(); toast('Урок добавлен ✓','success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+
+// ══════════════════════════════════════════════════
+//  УЧЕНИКИ
+// ══════════════════════════════════════════════════
+async function rStudents(){
+  const sec=document.getElementById('sec-students');
+  try{
+    _studCache=await GET('/api/users/students');
+    const today=new Date().toISOString().slice(0,10);
+    const cards=_studCache.map(s=>{
+      const pct=s.hwTotal?Math.round(s.hwDone/s.hwTotal*100):0;
+      return `<div class="sc-card" style="border-color:${s.color}30">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="sc-av" style="background:${s.color}">${s.name[0]}</div>
+            <div><div class="sc-name">${s.name}</div><div class="sc-tag">${s.subject||'Предмет не указан'}</div></div>
+          </div>
+          <button onclick="unlinkStudent('${s._id}','${s.name.replace(/'/g,"\\'")}')"
+            style="background:rgba(247,92,92,.1);border:1px solid rgba(247,92,92,.25);color:var(--danger);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit"
+            onmouseover="this.style.background='rgba(247,92,92,.28)'" onmouseout="this.style.background='rgba(247,92,92,.1)'">✕ Отвязать</button>
+        </div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:5px">Уроков в неделю</div>
+        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:12px">📅 ${s.schedCount}</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:6px">Успеваемость ДЗ</div>
+        <div style="background:var(--surface2);border-radius:50px;height:7px;overflow:hidden;margin-bottom:5px">
+          <div style="width:${pct}%;height:100%;border-radius:50px;background:${pct===100?'var(--accent2)':pct>50?'var(--accent3)':'var(--accent)'};transition:width .6s"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:12px">
+          <span>✅ ${s.hwDone}/${s.hwTotal}</span><span>${pct}%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:4px">Логин</div>
+        <div style="font-size:12px;color:var(--accent);font-weight:600;margin-bottom:12px">${s.login}</div>
+        <button class="btn btn-success btn-sm" onclick="openAddHW('${s._id}','${s.name.replace(/'/g,"\\'")}')" style="width:100%;justify-content:center">+ Добавить задание</button>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`
+      <div class="sec-header">
+        <div><div class="sec-title">👥 Ученики</div><div class="sec-sub">Зарегистрировались и выбрали вас · всего ${_studCache.length}</div></div>
+      </div>
+      ${_studCache.length?`<div class="student-grid">${cards}</div>`:`<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">Учеников пока нет</div><div class="empty-text">Ученики появятся здесь после регистрации и выбора вас репетитором</div></div>`}`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+async function unlinkStudent(id,name){
+  if(!confirm(`Отвязать «${name}»?\n\nАккаунт останется, ученик сможет выбрать другого репетитора.`)) return;
+  try{ await api('PUT',`/api/users/${id}/unlink`); await rStudents(); await rStats(); toast(`«${name}» отвязан`,'success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+
+// ══════════════════════════════════════════════════
+//  ДОМАШНИЕ ЗАДАНИЯ (репетитор)
+// ══════════════════════════════════════════════════
+function renderAttachments(atts, hwId){
+  if(!atts||!atts.length) return '';
+  const items=atts.map(a=>{
+    const isImg=a.mime_type&&a.mime_type.startsWith('image/');
+    return `<div class="att-item" ${isImg?'style="flex-direction:column;align-items:flex-start;gap:8px"':''}>
+      <div style="display:flex;align-items:center;gap:10px;width:100%">
+        <div class="att-icon">${getFileIcon(a.mime_type)}</div>
+        <div class="att-info"><div class="att-name">${a.original_name}</div><div class="att-size">${formatBytes(a.size)}</div></div>
+        <a class="att-dl" href="/api/attachments/${a.id}/download">⬇ Скачать</a>
+        ${currentUser.role==='tutor'?`<button class="att-dl" style="background:rgba(247,92,92,.1);border-color:rgba(247,92,92,.3);color:var(--danger)" onclick="delAttachment(${a.id},${hwId})">✕</button>`:''}
+      </div>
+      ${isImg?`<img src="/api/attachments/${a.id}/download" style="width:100%;max-height:250px;object-fit:contain;border-radius:8px;background:#0a1020;border:1px solid var(--border);cursor:pointer" onclick="openImgModal(${a.id},'${a.original_name.replace(/'/g,"\\'")}')">`:''}</div>`;
+  }).join('');
+  return `<div style="margin-top:8px"><div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px">📎 Вложения (${atts.length})</div><div class="att-list">${items}</div></div>`;
+}
+function openImgModal(attId, name){
+  openModal(`<div style="text-align:center">
+    <div style="font-size:13px;font-weight:600;margin-bottom:12px;color:var(--text2)">${name}</div>
+    <img src="/api/attachments/${attId}/download" style="max-width:100%;max-height:65vh;object-fit:contain;border-radius:10px;border:1px solid var(--border)">
+    <div style="margin-top:14px"><a class="att-dl" href="/api/attachments/${attId}/download" style="font-size:13px;padding:8px 20px">⬇ Скачать</a></div>
+  </div><div class="modal-foot"><button class="btn btn-ghost btn-sm" onclick="closeMod()">Закрыть</button></div>`);
+}
+async function delAttachment(id, hwId){
+  if(!confirm('Удалить этот файл?')) return;
+  try{ await DELETE('/api/attachments/'+id); await rHW(); toast('Файл удалён','success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+
+async function rHW(){
+  const sec=document.getElementById('sec-hw');
+  try{
+    _hwCache=await GET('/api/homework');
+    const today=new Date().toISOString().slice(0,10);
+    let hw=[..._hwCache];
+    if(hwFilter==='active')  hw=hw.filter(h=>!h.done);
+    if(hwFilter==='done')    hw=hw.filter(h=>h.done);
+    if(hwFilter==='overdue') hw=hw.filter(h=>!h.done&&h.due_date<today);
+    const items=hw.map(h=>{
+      const over=!h.done&&h.due_date<today;
+      return `<div class="hw-item ${h.done?'done':''}">
+        <div class="hw-chk ${h.done?'checked':''}" onclick="toggleHW(${h.id},${h.done})">${h.done?'✓':''}</div>
+        <div class="hw-body">
+          <div class="hw-title">${h.title}</div>
+          ${h.description?`<div style="font-size:12px;color:var(--text2);margin-top:3px">${h.description}</div>`:''}
+          ${renderAttachments(h.attachments,h.id)}
+          <div class="hw-meta">
+            <span class="hw-student">👤 ${h.student_name}</span>
+            <span class="hw-due ${over?'over':''}">📅 до ${h.due_date||'—'}</span>
+            ${h.done?'<span style="color:var(--accent2)">✓ Выполнено</span>':''}
+            ${over?'<span style="color:var(--danger)">⚠ Просрочено</span>':''}
+          </div>
+        </div>
+        <div class="hw-actions">
+          <button class="hw-icon-btn" onclick="openEditHW(${h.id})" style="color:var(--accent)" title="Редактировать">✏️</button>
+          <button class="hw-icon-btn" onclick="delHW(${h.id})" style="color:var(--danger)" title="Удалить">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`
+      <div class="sec-header">
+        <div><div class="sec-title">📝 Домашние задания</div><div class="sec-sub">Задания для учеников</div></div>
+        <button class="btn btn-sm" onclick="openAddHW(-1,'')">+ Задание</button>
+      </div>
+      <div class="filters">
+        <button class="fbtn ${hwFilter==='all'?'active':''}"     onclick="setHWF('all')">Все</button>
+        <button class="fbtn ${hwFilter==='active'?'active':''}"  onclick="setHWF('active')">Активные</button>
+        <button class="fbtn ${hwFilter==='done'?'active':''}"    onclick="setHWF('done')">Выполненные</button>
+        <button class="fbtn ${hwFilter==='overdue'?'active':''}" onclick="setHWF('overdue')">Просроченные</button>
+      </div>
+      ${hw.length?`<div class="hw-list">${items}</div>`:`<div class="empty"><div class="empty-icon">📝</div><div class="empty-title">Нет заданий</div></div>`}`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+async function setHWF(f){ hwFilter=f; await rHW(); }
+
+function openAddHW(preId, preName){
+  if(!_studCache.length){toast('Нет учеников','error');return;}
+  const opts=_studCache.map(s=>`<option value="${s._id}|${s.name}" ${s._id===preId?'selected':''}>${s.name}</option>`).join('');
+  const tmrw=new Date(); tmrw.setDate(tmrw.getDate()+1);
+  openModal(`<h2>+ Новое задание</h2>
+    <div class="field"><label>Ученик</label><select id="nh-st">${opts}</select></div>
+    <div class="field"><label>Название</label><input class="inp" type="text" id="nh-title" placeholder="Задачи по алгебре §12"></div>
+    <div class="field"><label>Описание</label><textarea id="nh-desc" placeholder="Стр. 45, задачи 1–8..."></textarea></div>
+    <div class="field"><label>Срок выполнения</label><input class="inp" type="date" id="nh-due" value="${tmrw.toISOString().slice(0,10)}"></div>
+    <div class="field"><label>Файлы <span style="font-weight:400;color:var(--text3)">(необязательно)</span></label>
+      <div class="drop-zone" onclick="document.getElementById('hw-files').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="onHWDrop(event)">
+        <div style="font-size:24px;margin-bottom:4px">📎</div>
+        <div style="font-size:13px;color:var(--text2)">Нажмите или перетащите файлы</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:3px">PDF, Word, PowerPoint, Excel, изображения · до 10 МБ</div>
+      </div>
+      <input type="file" id="hw-files" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" style="display:none" onchange="showSelectedFiles(this.files,'hw-files-list')">
+      <div id="hw-files-list" style="margin-top:8px"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()">Отмена</button>
+      <button class="btn btn-sm" id="hw-save-btn" onclick="saveHW()">Добавить задание</button>
+    </div>`);
+}
+function onHWDrop(e){ e.preventDefault(); e.target.closest('.drop-zone').classList.remove('drag'); document.getElementById('hw-files').files=e.dataTransfer.files; showSelectedFiles(e.dataTransfer.files,'hw-files-list'); }
+function showSelectedFiles(files, listId){
+  const el=document.getElementById(listId); if(!el) return;
+  el.innerHTML=Array.from(files).map(f=>`<div class="att-item"><div class="att-icon">${getFileIcon(f.type)}</div><div class="att-info"><div class="att-name">${f.name}</div><div class="att-size">${formatBytes(f.size)}</div></div></div>`).join('');
+}
+async function saveHW(){
+  const parts=document.getElementById('nh-st').value.split('|');
+  const title=document.getElementById('nh-title').value.trim();
+  const desc=document.getElementById('nh-desc').value.trim();
+  const due=document.getElementById('nh-due').value;
+  if(!title){toast('Введите название','error');return;}
+  const btn=document.getElementById('hw-save-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Сохранение...';
+  try{
+    const fd=new FormData();
+    fd.append('studentId',parts[0]); fd.append('studentName',parts[1]);
+    fd.append('title',title); fd.append('description',desc); fd.append('dueDate',due);
+    const files=document.getElementById('hw-files').files;
+    Array.from(files).forEach(f=>fd.append('files',f));
+    await FORM('/api/homework',fd);
+    closeMod(); await rHW(); await rStats(); toast('Задание добавлено ✓','success');
+  }catch(e){toast(e.message,'error');}
+  btn.disabled=false; btn.innerHTML='Добавить задание';
+}
+
+function openEditHW(id){
+  const h=_hwCache.find(h=>h.id===id); if(!h) return;
+  openModal(`<h2>✏️ Редактировать задание</h2>
+    <div style="background:rgba(79,142,247,.08);border:1px solid rgba(79,142,247,.2);border-radius:10px;padding:10px 14px;margin-bottom:18px;font-size:12px;color:var(--text2)">👤 Ученик: <b style="color:var(--text)">${h.student_name}</b></div>
+    <div class="field"><label>Название</label><input class="inp" type="text" id="eh-title" value="${h.title}"></div>
+    <div class="field"><label>Описание</label><textarea id="eh-desc">${h.description||''}</textarea></div>
+    <div class="field"><label>Срок выполнения</label><input class="inp" type="date" id="eh-due" value="${h.due_date||''}"></div>
+    <div class="field"><label>Добавить файлы</label>
+      <div class="drop-zone" onclick="document.getElementById('eh-files').click()" style="padding:14px">
+        <div style="font-size:13px;color:var(--text2)">📎 Нажмите для добавления файлов</div>
+      </div>
+      <input type="file" id="eh-files" multiple accept="image/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" style="display:none" onchange="showSelectedFiles(this.files,'eh-files-list')">
+      <div id="eh-files-list" style="margin-top:8px"></div>
+    </div>
+    ${h.attachments&&h.attachments.length?`<div style="font-size:11px;color:var(--text2);margin-top:8px">Текущие вложения: ${h.attachments.map(a=>`<span style="color:var(--accent)">${a.original_name}</span>`).join(', ')}</div>`:''}
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()">Отмена</button>
+      <button class="btn btn-sm" id="eh-save-btn" onclick="saveEditHW(${id})">💾 Сохранить</button>
+    </div>`);
+}
+async function saveEditHW(id){
+  const title=document.getElementById('eh-title').value.trim();
+  const desc=document.getElementById('eh-desc').value.trim();
+  const due=document.getElementById('eh-due').value;
+  if(!title){toast('Введите название','error');return;}
+  const btn=document.getElementById('eh-save-btn');
+  btn.disabled=true; btn.innerHTML='<span class="spinner"></span>Сохранение...';
+  try{
+    const fd=new FormData();
+    fd.append('title',title); fd.append('description',desc); fd.append('dueDate',due);
+    const files=document.getElementById('eh-files').files;
+    Array.from(files).forEach(f=>fd.append('files',f));
+    await FORMPUT('/api/homework/'+id,fd);
+    closeMod(); await rHW(); toast('Задание обновлено ✓','success');
+  }catch(e){toast(e.message,'error');}
+  btn.disabled=false; btn.innerHTML='💾 Сохранить';
+}
+async function toggleHW(id,done){
+  try{ await PATCH('/api/homework/'+id+'/toggle'); await rHW(); await rStats(); toast(done?'Отмечено невыполненным':'✓ Выполнено','success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+async function delHW(id){
+  if(!confirm('Удалить задание? Вложения также будут удалены.')) return;
+  try{ await DELETE('/api/homework/'+id); await rHW(); await rStats(); toast('Задание удалено','success'); }
+  catch(e){ toast(e.message,'error'); }
+}
+
+// ══════════════════════════════════════════════════
+//  СТАТИСТИКА
+// ══════════════════════════════════════════════════
+async function rStats(){
+  const sec=document.getElementById('sec-stats');
+  const sts=_studCache, sc=_schedCache, hw=_hwCache;
+  const done=hw.filter(h=>h.done).length, pct=hw.length?Math.round(done/hw.length*100):0;
+  const subjMap={};
+  sc.forEach(l=>{subjMap[l.subject]=(subjMap[l.subject]||0)+1;});
+  const maxV=Math.max(...Object.values(subjMap),1);
+  const subjBars=Object.entries(subjMap).map(([s,v])=>`<div class="bar-row"><div class="bar-lbl">${s}</div><div class="bar-track"><div class="bar-fill" style="width:${Math.round(v/maxV*100)}%"></div></div><div class="bar-val">${v}</div></div>`).join('')||'<div style="color:var(--text2);font-size:12px">Нет уроков</div>';
+  const stBars=sts.map(s=>`<div class="bar-row"><div class="bar-lbl" style="color:${s.color}">${s.name.split(' ')[0]}</div><div class="bar-track"><div class="bar-fill" style="width:${s.hwTotal?Math.round(s.hwDone/s.hwTotal*100):0}%;background:${s.color}"></div></div><div class="bar-val">${s.hwTotal?Math.round(s.hwDone/s.hwTotal*100):0}%</div></div>`).join('')||'<div style="color:var(--text2);font-size:12px">Нет данных</div>';
+  sec.innerHTML=`
+    <div class="sec-header"><div><div class="sec-title">📊 Статистика</div><div class="sec-sub">Обзор деятельности</div></div></div>
+    <div class="grid4" style="margin-bottom:20px">
+      <div class="stat-card"><div class="stat-num" style="color:var(--accent)">${sts.length}</div><div class="stat-lbl">👥 Учеников</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--accent2)">${sc.length}</div><div class="stat-lbl">📅 Уроков/нед.</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--accent3)">${hw.length}</div><div class="stat-lbl">📝 Заданий</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--accent2)">${pct}%</div><div class="stat-lbl">✅ Выполнено ДЗ</div></div>
+    </div>
+    <div class="grid2">
+      <div class="stat-card"><div style="font-size:13px;font-weight:700;margin-bottom:14px">📚 Уроков по предметам</div>${subjBars}</div>
+      <div class="stat-card"><div style="font-size:13px;font-weight:700;margin-bottom:14px">✅ Выполнение ДЗ</div>${stBars}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════════════
+//  БЕЗОПАСНОСТЬ
+// ══════════════════════════════════════════════════
+async function rSecurity(){
+  const sec=document.getElementById('sec-security');
+  try{
+    const logs=await GET('/api/security/log');
+    const typeMap={login:{icon:'✅',lbl:'Вход'},fail:{icon:'❌',lbl:'Неудачная попытка'},register:{icon:'🆕',lbl:'Регистрация'},password_change:{icon:'🔑',lbl:'Смена пароля'},reset_request:{icon:'📧',lbl:'Запрос сброса'},reset_done:{icon:'🔓',lbl:'Пароль сброшен'}};
+    const entries=logs.slice(0,30).map(l=>{
+      const t=typeMap[l.type]||{icon:'📋',lbl:'Событие'};
+      const dt=new Date(l.created_at);
+      const ds=`${dt.getDate()} ${MONTHS[dt.getMonth()]} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;
+      return `<div style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px">
+        <div style="font-size:15px">${t.icon}</div>
+        <div style="flex:1;color:var(--text2)"><b style="color:var(--text)">${t.lbl}</b> — ${l.login}${l.user_name&&l.user_name!==l.login?' ('+l.user_name+')':''} · IP: ${l.ip||'—'}</div>
+        <div style="color:var(--text3);font-size:11px;white-space:nowrap">${ds}</div>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`
+      <div class="sec-header"><div><div class="sec-title">🔐 Безопасность</div><div class="sec-sub">Журнал событий и смена пароля</div></div></div>
+      <div class="grid2" style="margin-bottom:20px">
+        <div class="card">
+          <div style="font-size:13px;font-weight:700;margin-bottom:14px">🛡️ Меры защиты</div>
+          <div style="font-size:12px;color:var(--text2);line-height:2.1">
+            ✅ Пароли хешируются bcrypt (cost 12)<br>
+            ✅ Требования к сложности пароля<br>
+            ✅ JWT-токены с истечением (2 часа)<br>
+            ✅ Блокировка после ${5} неудачных попыток<br>
+            ✅ Блокировка на ${15} минут<br>
+            ✅ Восстановление пароля по email<br>
+            ✅ Изоляция данных между репетиторами<br>
+            ✅ Файлы хранятся на сервере
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:13px;font-weight:700;margin-bottom:14px">🔑 Сменить пароль</div>
+          <div class="field"><label>Текущий пароль</label><div class="input-wrap"><input class="inp" type="password" id="cp-cur"><button class="eye" onclick="toggleEye('cp-cur',this)">👁</button></div></div>
+          <div class="field"><label>Новый пароль</label><div class="input-wrap"><input class="inp" type="password" id="cp-new" oninput="renderStrengthIn('cp-new','cp-sw')"><button class="eye" onclick="toggleEye('cp-new',this)">👁</button></div><div class="strength-wrap" id="cp-sw"></div></div>
+          <div class="field"><label>Повторите</label><div class="input-wrap"><input class="inp" type="password" id="cp-new2"><button class="eye" onclick="toggleEye('cp-new2',this)">👁</button></div></div>
+          <div id="cp-err" style="font-size:12px;color:var(--danger);margin-bottom:8px"></div>
+          <button class="btn btn-sm" onclick="changePwd()">Сменить пароль</button>
+        </div>
+      </div>
+      <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:12px">📋 Журнал (последние 30)</div>${entries||'<div style="color:var(--text2);font-size:13px">Нет событий</div>'}</div>`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+async function changePwd(){
+  const cur=document.getElementById('cp-cur').value, np=document.getElementById('cp-new').value, np2=document.getElementById('cp-new2').value;
+  const err=document.getElementById('cp-err'); err.textContent='';
+  if(!cur||!np||!np2){err.textContent='Заполните все поля';return;}
+  if(np!==np2){err.textContent='Новые пароли не совпадают';return;}
+  try{
+    await PUT('/api/users/me',{currentPassword:cur,newPassword:np});
+    ['cp-cur','cp-new','cp-new2'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('cp-sw').innerHTML='';
+    toast('✅ Пароль изменён!','success');
+  }catch(e){err.textContent=e.message;}
+}
+
+// ══════════════════════════════════════════════════
+//  УЧЕНИК: МОИ УРОКИ
+// ══════════════════════════════════════════════════
+async function rMyLessons(){
+  const sec=document.getElementById('sec-mylessons');
+  try{
+    const sched=await GET('/api/schedule');
+    const now=new Date(), curD=now.getDay()===0?6:now.getDay()-1;
+    const items=sched.sort((a,b)=>a.day-b.day).map(l=>{
+      const d=new Date(now); let diff=l.day-curD; if(diff<0)diff+=7; d.setDate(now.getDate()+diff);
+      const isPast=diff===0&&l.time<`${String(now.getHours()).padStart(2,'0')}:00`;
+      return `<div class="lesson-item">
+        <div class="lesson-date"><div class="lesson-day">${d.getDate()}</div><div class="lesson-mon">${MONTHS[d.getMonth()]}</div></div>
+        <div style="flex:1"><div style="font-size:14px;font-weight:700;margin-bottom:3px">${l.subject}</div><div style="font-size:11px;color:var(--text2)">${DAYS_FULL[l.day]}, ${l.time}</div></div>
+        <div class="lbadge ${isPast?'lb-done':'lb-up'}">${isPast?'Прошёл':'Предстоит'}</div>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`<div class="sec-header"><div><div class="sec-title">📅 Мои уроки</div><div class="sec-sub">Расписание занятий</div></div></div>
+      ${sched.length?`<div class="lesson-list">${items}</div>`:`<div class="empty"><div class="empty-icon">📅</div><div class="empty-title">Уроков нет</div><div class="empty-text">Репетитор пока не добавил уроки</div></div>`}`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+
+// ══════════════════════════════════════════════════
+//  УЧЕНИК: МОИ ЗАДАНИЯ
+// ══════════════════════════════════════════════════
+async function rMyHW(){
+  const sec=document.getElementById('sec-myhw');
+  try{
+    const hw=await GET('/api/homework');
+    const today=new Date().toISOString().slice(0,10);
+    const items=hw.map(h=>{
+      const over=!h.done&&h.due_date<today;
+      return `<div class="hw-item ${h.done?'done':''}">
+        <div class="hw-chk ${h.done?'checked':''}" onclick="toggleMyHW(${h.id},${h.done})">${h.done?'✓':''}</div>
+        <div class="hw-body">
+          <div class="hw-title">${h.title}</div>
+          ${h.description?`<div style="font-size:12px;color:var(--text2);margin-top:3px">${h.description}</div>`:''}
+          ${renderAttachments(h.attachments,h.id)}
+          <div class="hw-meta">
+            <span class="hw-due ${over?'over':''}">📅 до ${h.due_date||'—'}</span>
+            ${h.done?'<span style="color:var(--accent2)">✓ Выполнено</span>':''}
+            ${over?'<span style="color:var(--danger)">⚠ Просрочено</span>':''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    sec.innerHTML=`<div class="sec-header"><div><div class="sec-title">📝 Мои задания</div><div class="sec-sub">Домашние задания от репетитора</div></div></div>
+      ${hw.length?`<div class="hw-list">${items}</div>`:`<div class="empty"><div class="empty-icon">📝</div><div class="empty-title">Заданий нет</div><div class="empty-text">Репетитор пока не добавил задания</div></div>`}`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+async function toggleMyHW(id,done){
+  try{ await PATCH('/api/homework/'+id+'/toggle'); await rMyHW(); await rMyProgress(); toast(done?'Отмечено невыполненным':'✓ Задание выполнено!','success'); }
+  catch(e){toast(e.message,'error');}
+}
+
+// ══════════════════════════════════════════════════
+//  УЧЕНИК: ПРОГРЕСС
+// ══════════════════════════════════════════════════
+async function rMyProgress(){
+  const sec=document.getElementById('sec-myprog');
+  try{
+    const hw=await GET('/api/homework');
+    const sched=await GET('/api/schedule');
+    const done=hw.filter(h=>h.done).length, total=hw.length, pct=total?Math.round(done/total*100):0;
+    sec.innerHTML=`<div class="sec-header"><div><div class="sec-title">📈 Мой прогресс</div><div class="sec-sub">Ваши достижения</div></div></div>
+      <div class="grid3" style="margin-bottom:20px">
+        <div class="stat-card"><div class="stat-num" style="color:var(--accent)">${sched.length}</div><div class="stat-lbl">📅 Уроков/нед.</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--accent3)">${total}</div><div class="stat-lbl">📝 Заданий</div></div>
+        <div class="stat-card"><div class="stat-num" style="color:var(--accent2)">${done}</div><div class="stat-lbl">✅ Выполнено</div></div>
+      </div>
+      <div class="prog-card">
+        <div style="font-size:13px;font-weight:600;margin-bottom:9px">Прогресс выполнения</div>
+        <div class="prog-track"><div class="prog-bar" style="width:${pct}%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2)">${done} из ${total}<span>${pct}%</span></div>
+      </div>
+      ${pct===100&&total>0?'<div style="text-align:center;margin-top:28px"><div style="font-size:36px">🎉</div><div style="color:var(--accent2);font-weight:700;margin-top:8px">Все задания выполнены!</div></div>':''}`;
+  }catch(e){sec.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><div class="empty-title">${e.message}</div></div>`;}
+}
+
+// ══════════════════════════════════════════════════
+//  ПРОФИЛЬ
+// ══════════════════════════════════════════════════
+async function openProfile(){
+  const u=currentUser;
+  const allTutors=await GET('/api/users/tutors').catch(()=>[]);
+  const isTutor=u.role==='tutor';
+  const tutorField=!isTutor?`
+    <div class="field"><label>Ваш репетитор</label>
+      <select class="inp" id="p-tutor" style="padding:12px 15px">
+        <option value="">— не выбран —</option>
+        ${allTutors.map(t=>`<option value="${t._id}" ${t._id===u.tutor_id?'selected':''}>${t.name} (логин: ${t.login})</option>`).join('')}
+      </select>
+    </div>
+    <div class="field"><label>Предмет</label><input class="inp" type="text" id="p-subj" value="${u.subject||''}" placeholder="Математика..."></div>`:
+  '';
+  const studBlock=isTutor?await (async()=>{
+    try{
+      const sts=await GET('/api/users/students');
+      if(!sts.length) return `<div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:0 0 12px">👥 Мои ученики</div><div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;color:var(--text3);font-size:13px">Нет учеников</div>`;
+      const rows=sts.map(s=>`<div id="ps-${s._id}" style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:7px">
+        <div style="width:34px;height:34px;border-radius:50%;background:${s.color};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0">${s.name[0]}</div>
+        <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">${s.name}</div><div style="font-size:11px;color:var(--text2)">${s.subject||''} · логин: ${s.login}</div></div>
+        <div style="text-align:right;font-size:11px;color:var(--text2);margin-right:8px">✅ ${s.hwDone}/${s.hwTotal}</div>
+        <button onclick="profileUnlink('${s._id}','${s.name.replace(/'/g,"\\'")}')"
+          style="background:rgba(247,92,92,.1);border:1px solid rgba(247,92,92,.25);color:var(--danger);border-radius:7px;padding:5px 9px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit"
+          onmouseover="this.style.background='rgba(247,92,92,.28)'" onmouseout="this.style.background='rgba(247,92,92,.1)'">✕ Удалить</button>
+      </div>`).join('');
+      return `<div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 12px">👥 Ученики (${sts.length})</div><div style="max-height:200px;overflow-y:auto">${rows}</div>`;
+    }catch{return '';}
+  })():'';
+  openModal(`<h2>👤 Мой профиль</h2>
+    <div style="display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:18px">
+      <div style="width:48px;height:48px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0">${u.name[0]}</div>
+      <div><div style="font-size:15px;font-weight:700">${u.name}</div><div style="font-size:12px;color:var(--text2);margin-top:2px">Логин: <b style="color:var(--accent)">${u.login}</b></div><div style="font-size:11px;color:var(--text3)">${isTutor?'👩‍🏫 Репетитор':'🧑‍🎓 Ученик'}</div></div>
+    </div>
+    ${studBlock}
+    <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;${isTutor?'margin-top:20px':''}">✏️ Основные данные</div>
+    <div class="field"><label>Имя и фамилия</label><input class="inp" type="text" id="p-name" value="${u.name}"></div>
+    <div class="field"><label>Email</label><input class="inp" type="email" id="p-email" value="${u.email||''}" placeholder="pochta@gmail.com"></div>
+    ${tutorField}
+    <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 12px">🔑 Сменить пароль <span style="font-weight:400;color:var(--text3)">(необязательно)</span></div>
+    <div class="field"><label>Текущий пароль</label><div class="input-wrap"><input class="inp" type="password" id="p-cur"><button class="eye" onclick="toggleEye('p-cur',this)">👁</button></div></div>
+    <div class="field"><label>Новый пароль</label><div class="input-wrap"><input class="inp" type="password" id="p-new" oninput="renderStrengthIn('p-new','p-sw')"><button class="eye" onclick="toggleEye('p-new',this)">👁</button></div><div class="strength-wrap" id="p-sw"></div></div>
+    <div class="field"><label>Повторите</label><div class="input-wrap"><input class="inp" type="password" id="p-new2"><button class="eye" onclick="toggleEye('p-new2',this)">👁</button></div></div>
+    <div id="p-err" class="auth-err"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost btn-sm" onclick="closeMod()">Отмена</button>
+      <button class="btn btn-sm" onclick="saveProfile()">💾 Сохранить</button>
+    </div>`);
+}
+async function profileUnlink(id,name){
+  if(!confirm(`Отвязать «${name}»?`)) return;
+  try{ await api('PUT',`/api/users/${id}/unlink`); document.getElementById('ps-'+id)?.remove(); toast(`«${name}» отвязан`,'success'); await rStudents(); }
+  catch(e){toast(e.message,'error');}
+}
+async function saveProfile(){
+  const name=document.getElementById('p-name').value.trim();
+  const email=document.getElementById('p-email').value.trim();
+  const cur=document.getElementById('p-cur').value;
+  const np=document.getElementById('p-new').value;
+  const np2=document.getElementById('p-new2').value;
+  const errEl=document.getElementById('p-err'); errEl.style.display='none';
+  if(!name){errEl.textContent='Имя не может быть пустым';errEl.style.display='block';return;}
+  if(np||np2){
+    if(!cur){errEl.textContent='Введите текущий пароль';errEl.style.display='block';return;}
+    if(np!==np2){errEl.textContent='Пароли не совпадают';errEl.style.display='block';return;}
+  }
+  const body={name,email:email||null};
+  if(currentUser.role==='student'){
+    body.subject=document.getElementById('p-subj')?.value||'';
+    body.tutorId=document.getElementById('p-tutor')?.value||null;
+  }
+  if(cur&&np){body.currentPassword=cur;body.newPassword=np;}
+  try{
+    const upd=await PUT('/api/users/me',body);
+    currentUser={...upd};
+    document.getElementById('u-name').textContent=upd.name;
+    document.getElementById('u-av').textContent=upd.name[0].toUpperCase();
+    closeMod(); toast('✅ Профиль сохранён!','success');
+  }catch(e){errEl.textContent=e.message;errEl.style.display='block';}
+}
+
+// ══════════════════════════════════════════════════
+//  МОДАЛ
+// ══════════════════════════════════════════════════
+function openModal(html){document.getElementById('modal-ct').innerHTML=html;document.getElementById('modal-ov').classList.add('open');}
+function maybeCloseModal(e){if(e.target===document.getElementById('modal-ov'))closeMod();}
+function closeMod(){document.getElementById('modal-ov').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMod();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    if(document.getElementById('page-login').classList.contains('active'))   doLogin();
+    if(document.getElementById('page-register').classList.contains('active'))doRegister();
+  }
+});
+
+// ══════════════════════════════════════════════════
+//  ВОССТАНОВЛЕНИЕ СЕССИИ
+// ══════════════════════════════════════════════════
+(async()=>{
+  if(!_token) return;
+  try{
+    currentUser=await GET('/api/users/me');
+    await initApp(); showPage('app'); startTimer(_token);
+  }catch{ setToken(null); }
+})();
+</script>
+</body>
+</html>
